@@ -3,376 +3,1078 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RCC Email Generator · IHG One Rewards</title>
+<title>RCC Email Generator — SGG Guest Relations</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
-  :root {
-    --ihg-navy: #1a3a4a;
-    --ihg-teal: #20485a;
-    --ihg-accent: #c8401a;
-    --ihg-accent-hover: #a83314;
-    --ihg-gold: #c9a84c;
-    --bg: #f0ede8;
-    --surface: #ffffff;
-    --surface-2: #f7f5f2;
-    --border: rgba(30,50,60,0.12);
-    --text-primary: #1a2830;
-    --text-secondary: #4a6070;
-    --text-muted: #8a9eaa;
-    --radius: 8px;
-    --radius-lg: 14px;
-    --shadow-sm: 0 1px 3px rgba(20,40,50,0.08);
-    --shadow-md: 0 4px 16px rgba(20,40,50,0.10);
-    --font: 'DM Sans', sans-serif;
-    --mono: 'DM Mono', monospace;
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--serif);
-    font-size: 17px;
-    line-height: 1.7;
-    min-height: 100vh;
-    padding: 0;
-  }
+:root {
+  --ink:       #1a1814;
+  --ink-mid:   #3d3930;
+  --ink-soft:  #7a756e;
+  --paper:     #f7f4ef;
+  --pw:        #ede9e2;
+  --pd:        #ddd8cf;
+  --gold:      #b8975a;
+  --gold-lt:   #d4b47e;
+  --gold-fnt:  #f0e8d8;
+  --rule:      rgba(184,151,90,0.2);
+  --c-ack:     #3d7fa3;
+  --c-edu:     #8a6f35;
+  --c-own:     #6b4a78;
+  --c-res:     #3d7a56;
+  --c-warn:    #c17b2a;
+  --c-err:     #a33d3d;
+  --c-ok:      #3d7a56;
+  --c-info:    #3d7fa3;
+  --mono:      'DM Mono', monospace;
+  --serif:     'Cormorant Garamond', Georgia, serif;
+  --radius:    3px;
+}
 
-  .page {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 3.5rem 2.5rem 5rem;
-  }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
 
-  /* Header */
-  .header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 1.5rem;
-    margin-bottom: 2.75rem;
-  }
-  .header-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    color: var(--gold);
-    text-transform: uppercase;
-    line-height: 1;
-  }
-  .header-title {
-    font-size: 13px;
-    color: var(--ink-soft);
-    font-style: italic;
-    font-family: var(--serif);
-  }
+/* ── HEADER ── */
+.app-header {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.95rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  border-bottom: 2px solid var(--gold);
+  gap: 1rem;
+}
+.app-title-tag {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 2px;
+}
+.app-title-name {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--paper);
+  line-height: 1;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
 
-  /* Copy button */
-  .copy-btn {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    background: var(--ink);
-    color: var(--paper);
-    border: none;
-    padding: 9px 18px;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: background 0.2s, transform 0.1s;
-  }
-  .copy-btn:hover { background: var(--gold); color: var(--ink); }
-  .copy-btn:active { transform: scale(0.97); }
-  .copy-btn svg { flex-shrink: 0; }
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 15px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius);
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.btn-primary { background: var(--gold); color: var(--ink); }
+.btn-primary:hover { background: var(--gold-lt); }
+.btn-ghost {
+  background: transparent;
+  color: var(--gold-lt);
+  border: 1px solid rgba(184,151,90,0.35);
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+.btn.copied { background: #3a6b4a !important; color: #fff !important; }
+.btn-lg { padding: 11px 16px; font-size: 10px; width: 100%; justify-content: center; }
 
-  /* Prompt container */
-  .prompt-shell {
-    background: var(--paper-warm);
-    border: 1px solid var(--paper-deep);
-    border-left: 3px solid var(--gold);
-    border-radius: 2px;
-    padding: 2.25rem 2.5rem 2rem;
-    position: relative;
-  }
+/* ── LAYOUT ── */
+.app-body {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 1.75rem 1.75rem 5rem;
+  display: grid;
+  grid-template-columns: 1fr 390px;
+  gap: 1.5rem;
+  align-items: start;
+}
+.form-col { display: flex; flex-direction: column; gap: 1.25rem; }
+.preview-col { position: sticky; top: 72px; display: flex; flex-direction: column; gap: 1rem; }
 
-  /* Sections */
-  .section { margin-bottom: 2rem; }
-  .section:last-child { margin-bottom: 0; }
+/* ── CARDS ── */
+.card {
+  background: var(--pw);
+  border: 1px solid var(--pd);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.8rem 1.4rem;
+  border-bottom: 1px solid var(--pd);
+  background: rgba(255,255,255,0.38);
+}
+.card-step {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  text-transform: uppercase;
+  background: var(--gold-fnt);
+  padding: 2px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.card-title {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.card-body { padding: 1.25rem 1.4rem; }
 
-  .section-tag {
-    font-family: var(--mono);
-    font-size: 9.5px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: block;
-    margin-bottom: 0.6rem;
-  }
+/* ── FORM FIELDS ── */
+.fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.25rem;
+}
+.field-full { grid-column: 1 / -1; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field-label {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+}
+.field-input, .field-select, .field-textarea {
+  background: var(--paper);
+  border: 1px solid var(--pd);
+  border-radius: 2px;
+  padding: 7px 10px;
+  font-family: var(--serif);
+  font-size: 14.5px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.18s, background 0.18s;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.field-input:focus, .field-select:focus, .field-textarea:focus {
+  border-color: var(--gold);
+  background: #fff;
+}
+.field-input::placeholder, .field-textarea::placeholder {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.field-select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%23b8975a' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+}
+.field-select option, .field-select optgroup { font-family: sans-serif; font-size: 13px; }
+.field-textarea { resize: vertical; min-height: 72px; line-height: 1.6; }
 
-  .section-body {
-    font-family: var(--serif);
-    font-size: 15.5px;
-    color: var(--ink-mid);
-    line-height: 1.8;
-  }
+/* ── BEHAVIOR CARDS ── */
+.behavior-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+  margin-bottom: 0.9rem;
+}
+.behavior-card {
+  position: relative;
+  border: 1.5px solid var(--pd);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
+  background: var(--paper);
+  user-select: none;
+}
+.behavior-card:hover { border-color: var(--gold-lt); box-shadow: 0 2px 8px rgba(184,151,90,0.1); }
 
-  /* Input fields */
-  .fields {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.6rem 1.2rem;
-    margin-top: 0.75rem;
-  }
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .field-label {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold-light);
-  }
-  .field-input {
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--paper-deep);
-    border-radius: 0;
-    padding: 5px 0;
-    font-family: var(--serif);
-    font-size: 14.5px;
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.2s;
-    width: 100%;
-  }
-  .field-input:focus { border-color: var(--gold); }
-  .field-input::placeholder { color: var(--ink-soft); font-style: italic; }
+.behavior-card[data-id="ack"].active { border-color: var(--c-ack); background: rgba(61,127,163,0.07); }
+.behavior-card[data-id="edu"].active { border-color: var(--c-edu); background: rgba(138,111,53,0.07); }
+.behavior-card[data-id="own"].active { border-color: var(--c-own); background: rgba(107,74,120,0.07); }
+.behavior-card[data-id="res"].active { border-color: var(--c-res); background: rgba(61,122,86,0.07); }
 
-  .issue-field {
-    grid-column: 1 / -1;
-  }
-  .issue-textarea {
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--paper-deep);
-    border-radius: 0;
-    padding: 5px 0;
-    font-family: var(--serif);
-    font-size: 14.5px;
-    color: var(--ink);
-    outline: none;
-    width: 100%;
-    resize: none;
-    min-height: 60px;
-    transition: border-color 0.2s;
-    line-height: 1.6;
-  }
-  .issue-textarea:focus { border-color: var(--gold); }
-  .issue-textarea::placeholder { color: var(--ink-soft); font-style: italic; }
+.b-chip {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  padding: 2px 7px;
+  border-radius: 2px;
+  color: #fff;
+  margin-bottom: 0.45rem;
+}
+.b-chip-ack { background: var(--c-ack); }
+.b-chip-edu { background: var(--c-edu); }
+.b-chip-own { background: var(--c-own); }
+.b-chip-res { background: var(--c-res); }
 
-  /* Divider */
-  .rule {
-    border: none;
-    border-top: 1px solid var(--rule);
-    margin: 1.75rem 0;
-  }
+.b-check {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 17px;
+  height: 17px;
+  border: 1.5px solid var(--pd);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s;
+  font-size: 9px;
+  color: transparent;
+}
+.behavior-card[data-id="ack"].active .b-check { background: var(--c-ack); border-color: var(--c-ack); color: #fff; }
+.behavior-card[data-id="edu"].active .b-check { background: var(--c-edu); border-color: var(--c-edu); color: #fff; }
+.behavior-card[data-id="own"].active .b-check { background: var(--c-own); border-color: var(--c-own); color: #fff; }
+.behavior-card[data-id="res"].active .b-check { background: var(--c-res); border-color: var(--c-res); color: #fff; }
 
-  /* Tone list */
-  .tone-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    margin-top: 0.5rem;
-  }
-  .tone-list li {
-    font-family: var(--serif);
-    font-size: 14.5px;
-    color: var(--ink-mid);
-    padding-left: 1.1rem;
-    position: relative;
-    line-height: 1.6;
-  }
-  .tone-list li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--gold-light);
-    font-size: 12px;
-  }
+.b-name {
+  font-family: var(--serif);
+  font-size: 15.5px;
+  font-weight: 500;
+  color: var(--ink);
+  display: block;
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+}
+.b-coaching {
+  font-family: var(--serif);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  font-style: italic;
+  line-height: 1.5;
+}
 
-  /* Footer note */
-  .footer-note {
-    margin-top: 1.75rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--mono);
-    font-size: 9.5px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-  }
-  .footer-note::before {
-    content: '';
-    display: inline-block;
-    width: 24px;
-    height: 1px;
-    background: var(--rule);
-    flex-shrink: 0;
-  }
+/* ── BEHAVIOR FLOW ── */
+.behavior-flow {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  padding: 0.7rem 0.9rem;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid var(--pd);
+  border-radius: 2px;
+  min-height: 40px;
+}
+.flow-lbl {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: var(--gold-lt);
+  text-transform: uppercase;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+.flow-empty {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.flow-pill {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  padding: 3px 9px;
+  border-radius: 20px;
+  color: #fff;
+  text-transform: uppercase;
+}
+.fp-ack { background: var(--c-ack); }
+.fp-edu { background: var(--c-edu); }
+.fp-own { background: var(--c-own); }
+.fp-res { background: var(--c-res); }
+.flow-arrow { color: var(--gold-lt); font-size: 11px; font-family: var(--mono); }
 
-  /* Copied state */
-  .copy-btn.copied { background: #3a6b4a; color: #fff; }
+/* ── TONE GRID ── */
+.tone-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+.tone-card {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  border: 1.5px solid var(--pd);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  transition: all 0.18s;
+  background: var(--paper);
+  user-select: none;
+}
+.tone-card:hover { border-color: var(--gold-lt); }
+.tone-card.active { border-color: var(--gold); background: var(--gold-fnt); }
+.tone-icon { font-size: 17px; color: var(--gold); flex-shrink: 0; margin-top: 1px; line-height: 1; }
+.tone-info { flex: 1; }
+.tone-name { font-family: var(--serif); font-size: 14.5px; font-weight: 500; color: var(--ink); margin-bottom: 2px; line-height: 1.2; }
+.tone-desc { font-family: var(--serif); font-size: 12px; color: var(--ink-soft); font-style: italic; line-height: 1.45; }
+.tone-dot {
+  width: 13px;
+  height: 13px;
+  border: 1.5px solid var(--pd);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 3px;
+  transition: all 0.18s;
+}
+.tone-card.active .tone-dot { border-color: var(--gold); background: var(--gold); }
+
+/* ── COACHING FLAGS PANEL ── */
+.flags-panel {
+  background: var(--pw);
+  border: 1px solid var(--pd);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.panel-header {
+  padding: 0.7rem 1.2rem;
+  border-bottom: 1px solid var(--pd);
+  background: rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.panel-title {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+}
+.panel-badge {
+  font-family: var(--mono);
+  font-size: 8px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: var(--pd);
+  color: var(--ink-soft);
+}
+#flagsBody { padding: 0.75rem 1.2rem; display: flex; flex-direction: column; gap: 0.45rem; }
+.flag-empty {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.flag-item {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+  padding: 0.55rem 0.75rem;
+  border-radius: 2px;
+  font-family: var(--serif);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-mid);
+}
+.flag-item.warn  { background: rgba(193,123,42,0.1);  border-left: 3px solid var(--c-warn); }
+.flag-item.error { background: rgba(163,61,61,0.1);   border-left: 3px solid var(--c-err);  }
+.flag-item.ok    { background: rgba(61,122,86,0.1);   border-left: 3px solid var(--c-ok);   }
+.flag-item.info  { background: rgba(61,127,163,0.1);  border-left: 3px solid var(--c-info); }
+.flag-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.flag-item.warn  .flag-dot { background: var(--c-warn); }
+.flag-item.error .flag-dot { background: var(--c-err);  }
+.flag-item.ok    .flag-dot { background: var(--c-ok);   }
+.flag-item.info  .flag-dot { background: var(--c-info); }
+
+/* ── PREVIEW PANEL ── */
+.preview-panel {
+  background: var(--pw);
+  border: 1px solid var(--pd);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.preview-live {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: var(--c-ok);
+  text-transform: uppercase;
+}
+.live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-ok);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+.preview-text {
+  padding: 1rem 1.2rem;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-mid);
+  line-height: 1.75;
+  white-space: pre-wrap;
+  max-height: 310px;
+  overflow-y: auto;
+  background: var(--paper);
+  border-bottom: 1px solid var(--pd);
+  scrollbar-width: thin;
+  scrollbar-color: var(--pd) transparent;
+}
+
+/* ── ACTIONS ── */
+.actions-wrap { display: flex; flex-direction: column; gap: 0.5rem; }
+.actions-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.session-note {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  padding-top: 2px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .app-body { grid-template-columns: 1fr; }
+  .preview-col { position: static; }
+  .fields-grid { grid-template-columns: 1fr; }
+  .field-full { grid-column: auto; }
+  .behavior-grid, .tone-grid { grid-template-columns: 1fr; }
+  .actions-row { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
-<div class="page">
 
-  <div class="header">
-    <div>
-      <div class="header-label">Guest Relations · Email Framework</div>
-      <div class="header-title" style="margin-top:6px">Universal hospitality prompt — any issue, any guest</div>
-    </div>
-    <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-      Copy prompt
+<!-- ── HEADER ── -->
+<header class="app-header">
+  <div>
+    <span class="app-title-tag">SGG · Guest Relations Intelligence</span>
+    <span class="app-title-name">RCC Email Generator</span>
+  </div>
+  <div class="header-right">
+    <button class="btn btn-ghost" id="hdrExport" onclick="exportCSV()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Export Session
+    </button>
+    <button class="btn btn-primary" id="hdrCopy" onclick="copyAndLog()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copy Prompt
     </button>
   </div>
+</header>
 
-  <div class="prompt-shell" id="promptShell">
+<div class="app-body">
 
-    <!-- INPUT FIELDS -->
-    <div class="section">
-      <span class="section-tag">Guest Details</span>
-      <div class="fields">
-        <div class="field">
-          <span class="field-label">Guest full name</span>
-          <input class="field-input" id="f-name" type="text" placeholder="e.g. Jae Hyong Park">
-        </div>
-        <div class="field">
-          <span class="field-label">Loyalty tier</span>
-          <input class="field-input" id="f-tier" type="text" placeholder="e.g. Diamond Ambassador">
-        </div>
-        <div class="field">
-          <span class="field-label">Property</span>
-          <input class="field-input" id="f-property" type="text" placeholder="e.g. ANA InterContinental Okinawa">
-        </div>
-        <div class="field">
-          <span class="field-label">Dates of stay</span>
-          <input class="field-input" id="f-dates" type="text" placeholder="e.g. Feb 9–13">
-        </div>
-        <div class="field">
-          <span class="field-label">Travel party</span>
-          <input class="field-input" id="f-party" type="text" placeholder="e.g. wife and daughter">
-        </div>
-        <div class="field">
-          <span class="field-label">Your name + title</span>
-          <input class="field-input" id="f-agent" type="text" placeholder="e.g. Mia Santos, Guest Relations">
-        </div>
-        <div class="field issue-field">
-          <span class="field-label">Issue or concern</span>
-          <textarea class="issue-textarea" id="f-issue" placeholder="Describe the guest's concern and what action has already been taken. e.g. Suite upgrade certificate cannot be applied — no suites available. A complimentary upgrade request has been added to the reservation traces."></textarea>
+  <!-- ══════════ FORM COLUMN ══════════ -->
+  <div class="form-col">
+
+    <!-- STEP 01: Guest Details -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-step">Step 01</span>
+        <span class="card-title">Guest Details</span>
+      </div>
+      <div class="card-body">
+        <div class="fields-grid">
+          <div class="field">
+            <span class="field-label">Guest Full Name</span>
+            <input class="field-input" id="f-name" type="text" placeholder="e.g. Jae Hyong Park" oninput="updateAll()">
+          </div>
+          <div class="field">
+            <span class="field-label">Loyalty Tier</span>
+            <select class="field-select" id="f-tier" onchange="updateAll()">
+              <option value="">— Select tier —</option>
+              </optgroup>
+              <optgroup label="IHG One Rewards">
+                <option>Diamond Elite</option>
+                <option>Diamond Ambassador</option>
+                <option>Royal Ambassador</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="field">
+            <span class="field-label">Property</span>
+            <input class="field-input" id="f-property" type="text" placeholder="e.g. ANA InterContinental Okinawa" oninput="updateAll()">
+          </div>
+          <div class="field">
+            <span class="field-label">Dates of Stay</span>
+            <input class="field-input" id="f-dates" type="text" placeholder="e.g. Feb 9–13, 2025" oninput="updateAll()">
+          </div>
+          <div class="field">
+            <span class="field-label">Travel Party</span>
+            <input class="field-input" id="f-party" type="text" placeholder="e.g. wife and daughter" oninput="updateAll()">
+          </div>
+          <div class="field">
+            <span class="field-label">Your Name + Title</span>
+            <input class="field-input" id="f-agent" type="text" placeholder="e.g. Mia Santos, Guest Relations" oninput="updateAll()">
+          </div>
         </div>
       </div>
     </div>
 
-    <hr class="rule">
-
-    <!-- PROMPT BODY -->
-    <div class="section">
-      <span class="section-tag">Prompt</span>
-      <div class="section-body">
-        Write a professional hospitality email using the structure and tone below. Fill in all bracketed fields from the guest details provided.
+    <!-- STEP 02: Campaign & Issue -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-step">Step 02</span>
+        <span class="card-title">Campaign &amp; Issue</span>
+      </div>
+      <div class="card-body">
+        <div class="fields-grid">
+          <div class="field">
+            <span class="field-label">Campaign Type</span>
+            <select class="field-select" id="f-campaign" onchange="populateIssues(); updateAll()">
+              <option value="">— Select campaign —</option>
+              <option value="loyalty">Loyalty Benefits</option>
+              <option value="reservation">Reservation Change</option>
+              <option value="service-recovery">Service Recovery</option>
+              <option value="pre-arrival">Pre-Arrival Outreach</option>
+              <option value="post-stay">Post-Stay Follow-Up</option>
+              <option value="special">Special Request</option>
+            </select>
+          </div>
+          <div class="field">
+            <span class="field-label">Issue Category</span>
+            <select class="field-select" id="f-issue" onchange="updateAll()">
+              <option value="">— Select campaign first —</option>
+            </select>
+          </div>
+          <div class="field field-full">
+            <span class="field-label">Additional Context &amp; Action Already Taken</span>
+            <textarea class="field-textarea" id="f-context" placeholder="Describe specifics and what has already been completed — not promised. e.g. No suites available on requested dates; complimentary upgrade added to reservation traces." oninput="updateAll()"></textarea>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="section">
-      <span class="section-tag">Structure</span>
-      <div class="section-body">
-        <strong style="color:var(--ink);font-weight:500">1. Open.</strong> Address the guest by first name. Acknowledge their message and signal that you personally are handling their concern — not a team or system.<br><br>
-        <strong style="color:var(--ink);font-weight:500">2. Own the issue.</strong> Name the specific reservation, benefit, or request involved. Briefly acknowledge why it matters to them given their travel context, loyalty status, or travel party. Then state the outcome or limitation clearly and without excessive apology.<br><br>
-        <strong style="color:var(--ink);font-weight:500">3. Recovery action.</strong> Immediately follow the limitation with a concrete step already taken on the guest's behalf — not a promise, but a completed action. The guest should feel the situation has already moved forward.<br><br>
-        <strong style="color:var(--ink);font-weight:500">4. Close.</strong> Offer an open door for any remaining needs before their stay. Address the guest by surname and close with a send-off specific to the property and travel party. Sign off with "Yours in hospitality," followed by name and title.
+    <!-- STEP 03: SGG Behavior -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-step">Step 03</span>
+        <span class="card-title">SGG Behavior</span>
+      </div>
+      <div class="card-body">
+        <div class="behavior-grid" id="behaviorGrid"></div>
+        <div class="behavior-flow" id="behaviorFlow">
+          <span class="flow-lbl">Email arc</span>
+          <span class="flow-empty">Select behaviors above to define the narrative arc</span>
+        </div>
       </div>
     </div>
 
-    <hr class="rule">
-
-    <div class="section">
-      <span class="section-tag">Tone</span>
-      <ul class="tone-list">
-        <li>First-person singular throughout. Never passive voice or "we have reviewed."</li>
-        <li>Soft but not apologetic. Confident but not clinical.</li>
-        <li>No bullet points, no em-dashes, no policy explanations. Flowing paragraphs only.</li>
-        <li>Name the guest at minimum twice: once in the greeting, once in the closing.</li>
-        <li>The transition from limitation to recovery must feel seamless — not transactional.</li>
-        <li>End by reopening the relationship, not just closing the case.</li>
-      </ul>
+    <!-- STEP 04: Tone -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-step">Step 04</span>
+        <span class="card-title">Tone</span>
+      </div>
+      <div class="card-body">
+        <div class="tone-grid" id="toneGrid"></div>
+      </div>
     </div>
 
-  </div>
+  </div><!-- /form-col -->
 
-  <div class="footer-note">Fill fields above, then copy to generate a fully populated prompt</div>
+  <!-- ══════════ PREVIEW COLUMN ══════════ -->
+  <div class="preview-col">
 
-</div>
+    <!-- Coaching Intelligence -->
+    <div class="flags-panel">
+      <div class="panel-header">
+        <span class="panel-title">Coaching Intelligence</span>
+        <span class="panel-badge" id="flagsBadge">0 flags</span>
+      </div>
+      <div id="flagsBody">
+        <span class="flag-empty">Complete steps 3 &amp; 4 to receive live coaching feedback.</span>
+      </div>
+    </div>
+
+    <!-- Live Preview -->
+    <div class="preview-panel">
+      <div class="panel-header">
+        <span class="panel-title">Live Prompt Preview</span>
+        <span class="preview-live"><span class="live-dot"></span>Live</span>
+      </div>
+      <div class="preview-text" id="previewText"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions-wrap">
+      <div class="actions-row">
+        <button class="btn btn-primary btn-lg" id="sidebarCopy" onclick="copyAndLog()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Prompt
+        </button>
+        <button class="btn btn-ghost btn-lg" onclick="exportCSV()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV
+        </button>
+      </div>
+      <div class="session-note" id="sessionNote">0 prompts logged this session</div>
+    </div>
+
+  </div><!-- /preview-col -->
+
+</div><!-- /app-body -->
 
 <script>
+// ═══ DATA ═══════════════════════════════════════════════════════════════════
+
+const CAMPAIGN_ISSUES = {
+  loyalty: [
+    'Suite upgrade certificate unavailable',
+    'Points not posting to account',
+    'Tier benefit not applied at check-in',
+    'Complimentary breakfast not honored',
+    'Welcome amenity missing',
+    'Late checkout unavailable',
+    'Room preference not honored'
+  ],
+  reservation: [
+    'Date modification request',
+    'Room type change request',
+    'Cancellation assistance needed',
+    'Early check-in request',
+    'Late check-out request',
+    'Adjoining or connecting room request',
+    'Bed type change request'
+  ],
+  'service-recovery': [
+    'In-stay noise or disturbance',
+    'Billing dispute or discrepancy',
+    'Amenity or facility unavailable',
+    'Housekeeping concern',
+    'Restaurant or dining experience issue',
+    'In-room maintenance issue',
+    'Accessibility concern'
+  ],
+  'pre-arrival': [
+    'Pre-arrival welcome message',
+    'Special occasion setup confirmation',
+    'Dietary requirements confirmation',
+    'Airport transfer coordination',
+    'Accessibility or medical needs',
+    'VIP arrival confirmation',
+    'Room readiness assurance'
+  ],
+  'post-stay': [
+    'Post-stay thank you message',
+    'Lost and found item',
+    'Post-stay billing inquiry',
+    'Guest satisfaction follow-up',
+    'Return visit incentive offer'
+  ],
+  special: [
+    'Anniversary or honeymoon arrangement',
+    'Birthday surprise setup',
+    'Medical accommodation request',
+    'VIP/VVIP coordination',
+    'Pet policy and accommodation',
+    'Custom in-room experience',
+    'Wedding block coordination'
+  ]
+};
+
+const BEHAVIORS = [
+  {
+    id: 'ack',
+    chip: 'ACK',
+    label: 'Acknowledge',
+    coaching: 'I hear you — your concern is valid and I am personally engaged.',
+    guidance: 'Open with empathy. Validate without over-apologizing. Set a human, personal tone.'
+  },
+  {
+    id: 'edu',
+    chip: 'EDU',
+    label: 'Educate',
+    coaching: 'Let me explain what happened and the context behind it.',
+    guidance: 'Add transparency and context. Build understanding without making excuses.'
+  },
+  {
+    id: 'own',
+    chip: 'OWN',
+    label: 'Own',
+    coaching: 'I take responsibility. Here is what I have already done.',
+    guidance: 'Move to action. Demonstrate personal accountability with completed steps — not promises.'
+  },
+  {
+    id: 'res',
+    chip: 'RES',
+    label: 'Reassure',
+    coaching: 'Everything is in motion. You are in good hands for this stay.',
+    guidance: 'Close the loop. Rebuild trust and restore the guest\'s confidence before arrival.'
+  }
+];
+
+const TONES = [
+  {
+    id: 'empathetic',
+    icon: '◎',
+    label: 'Empathetic Recovery',
+    desc: 'Warm, emotionally attuned. For service failures or distressed guests.',
+    guidance: 'Lead with empathy before logic. Soft but never apologetic. Warmth is the dominant register.'
+  },
+  {
+    id: 'professional',
+    icon: '◈',
+    label: 'Professional Resolution',
+    desc: 'Composed, clear, confident. For billing, logistics, or factual matters.',
+    guidance: 'Fact-forward and direct. Avoid excessive warmth or effusiveness. Calm confidence throughout.'
+  },
+  {
+    id: 'proactive',
+    icon: '◇',
+    label: 'Proactive Service',
+    desc: 'Forward-looking, anticipatory. For pre-arrival or welcome outreach.',
+    guidance: 'The focus is on what lies ahead, not what was lacking. Energetic but refined.'
+  },
+  {
+    id: 'luxury',
+    icon: '◆',
+    label: 'Luxury Reassurance',
+    desc: 'Refined, understated. For VIP/VVIP guests and suite-level stays.',
+    guidance: 'Elegance in every word. Understated confidence. No excess, no filler, no cliché.'
+  }
+];
+
+// ═══ STATE ════════════════════════════════════════════════════════════════════
+
+let selectedBehaviors = []; // ordered by canonical sequence
+let selectedTone = null;
+let sessionLog = [];
+
+// ═══ INIT ═════════════════════════════════════════════════════════════════════
+
+(function init() {
+  renderBehaviors();
+  renderTones();
+  updateAll();
+})();
+
+function renderBehaviors() {
+  document.getElementById('behaviorGrid').innerHTML = BEHAVIORS.map(b => `
+    <div class="behavior-card" data-id="${b.id}" onclick="toggleBehavior('${b.id}')">
+      <span class="b-chip b-chip-${b.id}">${b.chip}</span>
+      <div class="b-check">✓</div>
+      <span class="b-name">${b.label}</span>
+      <span class="b-coaching">${b.coaching}</span>
+    </div>
+  `).join('');
+}
+
+function renderTones() {
+  document.getElementById('toneGrid').innerHTML = TONES.map(t => `
+    <div class="tone-card" data-id="${t.id}" onclick="selectTone('${t.id}')">
+      <span class="tone-icon">${t.icon}</span>
+      <div class="tone-info">
+        <div class="tone-name">${t.label}</div>
+        <div class="tone-desc">${t.desc}</div>
+      </div>
+      <div class="tone-dot"></div>
+    </div>
+  `).join('');
+}
+
+// ═══ INTERACTIONS ════════════════════════════════════════════════════════════
+
+function toggleBehavior(id) {
+  const i = selectedBehaviors.indexOf(id);
+  if (i === -1) selectedBehaviors.push(id);
+  else selectedBehaviors.splice(i, 1);
+
+  // Keep canonical order: ack → edu → own → res
+  const order = ['ack','edu','own','res'];
+  selectedBehaviors.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+
+  // Sync card visuals
+  BEHAVIORS.forEach(b => {
+    const card = document.querySelector(`.behavior-card[data-id="${b.id}"]`);
+    if (card) card.className = 'behavior-card' + (selectedBehaviors.includes(b.id) ? ' active' : '');
+  });
+
+  updateAll();
+}
+
+function selectTone(id) {
+  selectedTone = id;
+  document.querySelectorAll('.tone-card').forEach(c => {
+    c.className = 'tone-card' + (c.dataset.id === id ? ' active' : '');
+  });
+  updateAll();
+}
+
+function populateIssues() {
+  const val = document.getElementById('f-campaign').value;
+  const sel = document.getElementById('f-issue');
+  const issues = CAMPAIGN_ISSUES[val] || [];
+  sel.innerHTML = issues.length
+    ? '<option value="">— Select issue —</option>' + issues.map(i => `<option value="${i}">${i}</option>`).join('')
+    : '<option value="">— Select campaign first —</option>';
+}
+
+// ═══ CORE UPDATE ══════════════════════════════════════════════════════════════
+
+function updateAll() {
+  renderFlow();
+  renderFlags();
+  renderPreview();
+}
+
+function renderFlow() {
+  const el = document.getElementById('behaviorFlow');
+  if (!selectedBehaviors.length) {
+    el.innerHTML = '<span class="flow-lbl">Email arc</span><span class="flow-empty">Select behaviors above to define the narrative arc</span>';
+    return;
+  }
+  const pills = selectedBehaviors.map((id, i) => {
+    const b = BEHAVIORS.find(x => x.id === id);
+    const arrow = i < selectedBehaviors.length - 1 ? '<span class="flow-arrow">→</span>' : '';
+    return `<span class="flow-pill fp-${id}">${b.chip} ${b.label}</span>${arrow}`;
+  }).join('');
+  el.innerHTML = '<span class="flow-lbl">Email arc</span>' + pills;
+}
+
+// ═══ COACHING FLAGS ═══════════════════════════════════════════════════════════
+
+function getFlags() {
+  const flags = [];
+  const bv = selectedBehaviors;
+  const tn = selectedTone;
+
+  if (bv.length === 0 && tn) {
+    flags.push({ type: 'error', msg: 'No SGG behavior selected. Define behavioral intent before generating.' });
+  }
+  if (!tn && bv.length > 0) {
+    flags.push({ type: 'error', msg: 'No tone selected. Choose a tone to align register with intent.' });
+  }
+
+  // Mismatches
+  if (tn === 'professional' && bv.length === 1 && bv[0] === 'ack') {
+    flags.push({ type: 'warn', msg: 'Mismatch: Professional + Acknowledge only can read as distant or dismissive. Consider adding Own or Educate.' });
+  }
+  if (tn === 'luxury' && bv.length === 1 && bv[0] === 'ack') {
+    flags.push({ type: 'warn', msg: 'Luxury guests expect proactive resolution. Acknowledge alone underdelivers — add Own + Reassure.' });
+  }
+  if (tn === 'empathetic' && bv.length === 1 && bv[0] === 'edu') {
+    flags.push({ type: 'warn', msg: 'Educate alone in an empathetic tone feels explanatory, not caring. Consider adding Acknowledge.' });
+  }
+  if (tn === 'professional' && bv.includes('ack') && !bv.includes('own') && !bv.includes('edu')) {
+    flags.push({ type: 'warn', msg: 'Professional tone without Own or Educate may leave the issue feeling unresolved.' });
+  }
+
+  // Coaching tips
+  if (tn === 'proactive' && bv.length > 0 && !bv.includes('res')) {
+    flags.push({ type: 'info', msg: 'Proactive outreach closes stronger with Reassure — helps the guest arrive with full confidence.' });
+  }
+  if (bv.length === 4) {
+    flags.push({ type: 'info', msg: 'Full SGG arc selected. Ensure the email flows naturally — avoid a mechanical A→E→O→R structure.' });
+  }
+
+  // Strong patterns
+  if (bv.includes('own') && bv.includes('res')) {
+    flags.push({ type: 'ok', msg: 'Strong recovery pattern: Own + Reassure signals personal accountability and clear resolution.' });
+  }
+  if (tn === 'empathetic' && bv.includes('ack') && bv.includes('own')) {
+    flags.push({ type: 'ok', msg: 'Ideal empathetic recovery: Acknowledge + Own creates emotional safety and immediate action.' });
+  }
+  if (tn === 'luxury' && bv.includes('own') && bv.includes('res')) {
+    flags.push({ type: 'ok', msg: 'Luxury + Own + Reassure: refined accountability — exactly what a top-tier guest expects.' });
+  }
+
+  return flags;
+}
+
+function renderFlags() {
+  const flags = getFlags();
+  document.getElementById('flagsBadge').textContent = flags.length + (flags.length === 1 ? ' flag' : ' flags');
+  const body = document.getElementById('flagsBody');
+  if (!flags.length) {
+    body.innerHTML = '<span class="flag-empty">Complete steps 3 &amp; 4 to receive live coaching feedback.</span>';
+    return;
+  }
+  body.innerHTML = flags.map(f => `
+    <div class="flag-item ${f.type}">
+      <span class="flag-dot"></span>
+      <span>${f.msg}</span>
+    </div>
+  `).join('');
+}
+
+// ═══ PROMPT BUILDER ══════════════════════════════════════════════════════════
+
+function val(id) { return (document.getElementById(id)?.value || '').trim(); }
+
 function buildPrompt() {
-  const name = document.getElementById('f-name').value.trim() || '[Guest full name]';
-  const tier = document.getElementById('f-tier').value.trim() || '[Loyalty tier]';
-  const property = document.getElementById('f-property').value.trim() || '[Property name]';
-  const dates = document.getElementById('f-dates').value.trim() || '[Dates of stay]';
-  const party = document.getElementById('f-party').value.trim() || '[Travel party]';
-  const agent = document.getElementById('f-agent').value.trim() || '[Your name and title]';
-  const issue = document.getElementById('f-issue').value.trim() || '[Issue or concern, and what action has already been taken]';
+  const name     = val('f-name')     || '[Guest name]';
+  const tier     = val('f-tier')     || '[Loyalty tier]';
+  const property = val('f-property') || '[Property]';
+  const dates    = val('f-dates')    || '[Dates of stay]';
+  const party    = val('f-party')    || '[Travel party]';
+  const agent    = val('f-agent')    || '[Your name + title]';
+  const context  = val('f-context');
+
+  const campaignEl = document.getElementById('f-campaign');
+  const issueEl    = document.getElementById('f-issue');
+  const campaign   = campaignEl?.options[campaignEl.selectedIndex]?.text || '[Campaign]';
+  const issue      = issueEl?.value || '[Issue]';
+  const issueText  = context ? `${issue}. ${context}` : issue;
+
+  const bLines = selectedBehaviors.length
+    ? selectedBehaviors.map(id => {
+        const b = BEHAVIORS.find(x => x.id === id);
+        return `  · ${b.label}: ${b.coaching}\n    ${b.guidance}`;
+      }).join('\n')
+    : '  [No behavior selected — complete Step 03]';
+
+  const tone = TONES.find(t => t.id === selectedTone);
+  const toneLabel    = tone ? tone.label    : '[Tone not selected — complete Step 04]';
+  const toneGuidance = tone ? tone.guidance : '';
 
   return `Write a professional hospitality email using the structure and tone below.
 
-GUEST DETAILS
-Name: ${name}
-Loyalty tier: ${tier}
-Property: ${property}
-Dates: ${dates}
-Travel party: ${party}
-Issue / action taken: ${issue}
-Sign-off: Yours in hospitality, ${agent}
+── GUEST DETAILS ──────────────────────────────────
+Name:          ${name}
+Loyalty tier:  ${tier}
+Property:      ${property}
+Dates:         ${dates}
+Travel party:  ${party}
+Sign-off:      Yours in hospitality, ${agent}
 
-STRUCTURE
+── CAMPAIGN & ISSUE ───────────────────────────────
+Campaign:      ${campaign}
+Issue:         ${issueText}
+
+── SGG BEHAVIOR INTENT ────────────────────────────
+${bLines}
+
+── TONE ───────────────────────────────────────────
+${toneLabel}
+${toneGuidance}
+
+── STRUCTURE ──────────────────────────────────────
 1. Open. Address the guest by first name. Acknowledge their message and signal that you personally are handling their concern — not a team or system.
-2. Own the issue. Name the specific reservation, benefit, or request involved. Briefly acknowledge why it matters to them given their travel context, loyalty status, or travel party. Then state the outcome or limitation clearly and without excessive apology.
-3. Recovery action. Immediately follow the limitation with a concrete step already taken on the guest's behalf — not a promise, but a completed action. The guest should feel the situation has already moved forward.
-4. Close. Offer an open door for any remaining needs before their stay. Address the guest by surname and close with a send-off specific to the property and travel party. Sign off with "Yours in hospitality," followed by name and title.
 
-TONE
+2. Own the issue. Name the specific reservation, benefit, or request. Acknowledge why it matters given their travel context, loyalty status, or travel party. State the outcome or limitation clearly and without excessive apology.
+
+3. Recovery action. Immediately follow the limitation with a concrete step already taken on the guest's behalf — not a promise, but a completed action. The guest should feel the situation has already moved forward.
+
+4. Close. Offer an open door before their stay. Address the guest by surname with a send-off specific to the property and travel party. Sign with: "Yours in hospitality," [name] [title]
+
+── WRITING RULES ──────────────────────────────────
 - First-person singular throughout. Never passive voice or "we have reviewed."
-- Soft but not apologetic. Confident but not clinical.
 - No bullet points, no em-dashes, no policy explanations. Flowing paragraphs only.
 - Name the guest at minimum twice: once in the greeting, once in the closing.
 - The transition from limitation to recovery must feel seamless — not transactional.
 - End by reopening the relationship, not just closing the case.`;
 }
 
-function copyPrompt() {
-  const text = buildPrompt();
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById('copyBtn');
-    btn.classList.add('copied');
-    btn.textContent = 'Copied';
-    setTimeout(() => {
-      btn.classList.remove('copied');
-      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2-2v1"/></svg> Copy prompt`;
-    }, 2000);
+function renderPreview() {
+  document.getElementById('previewText').textContent = buildPrompt();
+}
+
+// ═══ ACTIONS ═════════════════════════════════════════════════════════════════
+
+function copyAndLog() {
+  navigator.clipboard.writeText(buildPrompt()).then(() => {
+    logEntry();
+    flashCopied();
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = buildPrompt();
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    logEntry();
+    flashCopied();
   });
+}
+
+function flashCopied() {
+  ['hdrCopy', 'sidebarCopy'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    const orig = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.textContent = '✓ Copied';
+    setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2200);
+  });
+}
+
+function logEntry() {
+  const campaignEl = document.getElementById('f-campaign');
+  const issueEl    = document.getElementById('f-issue');
+  const flags = getFlags();
+
+  sessionLog.push({
+    timestamp:  new Date().toISOString(),
+    agent:      val('f-agent'),
+    property:   val('f-property'),
+    guest_name: val('f-name'),
+    tier:       val('f-tier'),
+    campaign:   campaignEl?.options[campaignEl.selectedIndex]?.text || '',
+    issue:      issueEl?.value || '',
+    context:    val('f-context'),
+    behaviors:  selectedBehaviors.map(id => BEHAVIORS.find(b => b.id === id)?.label).join(' + '),
+    tone:       TONES.find(t => t.id === selectedTone)?.label || '',
+    flags:      flags.map(f => `[${f.type.toUpperCase()}] ${f.msg}`).join(' | ')
+  });
+
+  const n = sessionLog.length;
+  document.getElementById('sessionNote').textContent = n + ' prompt' + (n !== 1 ? 's' : '') + ' logged this session';
+}
+
+function exportCSV() {
+  if (!sessionLog.length) {
+    alert('No entries logged yet.\nCopy a prompt first to add it to the session log.');
+    return;
+  }
+  const headers = ['Timestamp','Agent','Property','Guest Name','Loyalty Tier','Campaign','Issue','Additional Context','Behaviors','Tone','Coaching Flags'];
+  const rows = sessionLog.map(e => [e.timestamp, e.agent, e.property, e.guest_name, e.tier, e.campaign, e.issue, e.context, e.behaviors, e.tone, e.flags]);
+  const csv = [headers, ...rows]
+    .map(row => row.map(cell => `"${String(cell || '').replace(/"/g, '""')}"`).join(','))
+    .join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = Object.assign(document.createElement('a'), { href: url, download: `rcc-session-${new Date().toISOString().slice(0,10)}.csv` });
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 </script>
 </body>
