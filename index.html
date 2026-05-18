@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hospitality Email Prompt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1814;
+    --ink-mid: #4a4640;
+    --ink-soft: #7a756e;
+    --paper: #f7f4ef;
+    --paper-warm: #ede9e2;
+    --paper-deep: #e3ded5;
+    --gold: #b8975a;
+    --gold-light: #d4b47e;
+    --gold-faint: #f0e8d8;
+    --rule: rgba(184,151,90,0.25);
+    --mono: 'DM Mono', monospace;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.7;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3.5rem 2.5rem 5rem;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2.75rem;
+  }
+  .header-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .header-title {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-family: var(--serif);
+  }
+
+  /* Copy button */
+  .copy-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 9px 18px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .copy-btn:hover { background: var(--gold); color: var(--ink); }
+  .copy-btn:active { transform: scale(0.97); }
+  .copy-btn svg { flex-shrink: 0; }
+
+  /* Prompt container */
+  .prompt-shell {
+    background: var(--paper-warm);
+    border: 1px solid var(--paper-deep);
+    border-left: 3px solid var(--gold);
+    border-radius: 2px;
+    padding: 2.25rem 2.5rem 2rem;
+    position: relative;
+  }
+
+  /* Sections */
+  .section { margin-bottom: 2rem; }
+  .section:last-child { margin-bottom: 0; }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-body {
+    font-family: var(--serif);
+    font-size: 15.5px;
+    color: var(--ink-mid);
+    line-height: 1.8;
+  }
+
+  /* Input fields */
+  .fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem 1.2rem;
+    margin-top: 0.75rem;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .field-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+  }
+  .field-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--paper-deep);
+    border-radius: 0;
+    padding: 5px 0;
+    font-family: var(--serif);
+    font-size: 14.5px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .field-input:focus { border-color: var(--gold); }
+  .field-input::placeholder { color: var(--ink-soft); font-style: italic; }
+
+  .issue-field {
+    grid-column: 1 / -1;
+  }
+  .issue-textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--paper-deep);
+    border-radius: 0;
+    padding: 5px 0;
+    font-family: var(--serif);
+    font-size: 14.5px;
+    color: var(--ink);
+    outline: none;
+    width: 100%;
+    resize: none;
+    min-height: 60px;
+    transition: border-color 0.2s;
+    line-height: 1.6;
+  }
+  .issue-textarea:focus { border-color: var(--gold); }
+  .issue-textarea::placeholder { color: var(--ink-soft); font-style: italic; }
+
+  /* Divider */
+  .rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 1.75rem 0;
+  }
+
+  /* Tone list */
+  .tone-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: 0.5rem;
+  }
+  .tone-list li {
+    font-family: var(--serif);
+    font-size: 14.5px;
+    color: var(--ink-mid);
+    padding-left: 1.1rem;
+    position: relative;
+    line-height: 1.6;
+  }
+  .tone-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold-light);
+    font-size: 12px;
+  }
+
+  /* Footer note */
+  .footer-note {
+    margin-top: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .footer-note::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--rule);
+    flex-shrink: 0;
+  }
+
+  /* Copied state */
+  .copy-btn.copied { background: #3a6b4a; color: #fff; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div>
+      <div class="header-label">Guest Relations · Email Framework</div>
+      <div class="header-title" style="margin-top:6px">Universal hospitality prompt — any issue, any guest</div>
+    </div>
+    <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copy prompt
+    </button>
+  </div>
+
+  <div class="prompt-shell" id="promptShell">
+
+    <!-- INPUT FIELDS -->
+    <div class="section">
+      <span class="section-tag">Guest Details</span>
+      <div class="fields">
+        <div class="field">
+          <span class="field-label">Guest full name</span>
+          <input class="field-input" id="f-name" type="text" placeholder="e.g. Jae Hyong Park">
+        </div>
+        <div class="field">
+          <span class="field-label">Loyalty tier</span>
+          <input class="field-input" id="f-tier" type="text" placeholder="e.g. Diamond Ambassador">
+        </div>
+        <div class="field">
+          <span class="field-label">Property</span>
+          <input class="field-input" id="f-property" type="text" placeholder="e.g. ANA InterContinental Okinawa">
+        </div>
+        <div class="field">
+          <span class="field-label">Dates of stay</span>
+          <input class="field-input" id="f-dates" type="text" placeholder="e.g. Feb 9–13">
+        </div>
+        <div class="field">
+          <span class="field-label">Travel party</span>
+          <input class="field-input" id="f-party" type="text" placeholder="e.g. wife and daughter">
+        </div>
+        <div class="field">
+          <span class="field-label">Your name + title</span>
+          <input class="field-input" id="f-agent" type="text" placeholder="e.g. Mia Santos, Guest Relations">
+        </div>
+        <div class="field issue-field">
+          <span class="field-label">Issue or concern</span>
+          <textarea class="issue-textarea" id="f-issue" placeholder="Describe the guest's concern and what action has already been taken. e.g. Suite upgrade certificate cannot be applied — no suites available. A complimentary upgrade request has been added to the reservation traces."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <!-- PROMPT BODY -->
+    <div class="section">
+      <span class="section-tag">Prompt</span>
+      <div class="section-body">
+        Write a professional hospitality email using the structure and tone below. Fill in all bracketed fields from the guest details provided.
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="section-tag">Structure</span>
+      <div class="section-body">
+        <strong style="color:var(--ink);font-weight:500">1. Open.</strong> Address the guest by first name. Acknowledge their message and signal that you personally are handling their concern — not a team or system.<br><br>
+        <strong style="color:var(--ink);font-weight:500">2. Own the issue.</strong> Name the specific reservation, benefit, or request involved. Briefly acknowledge why it matters to them given their travel context, loyalty status, or travel party. Then state the outcome or limitation clearly and without excessive apology.<br><br>
+        <strong style="color:var(--ink);font-weight:500">3. Recovery action.</strong> Immediately follow the limitation with a concrete step already taken on the guest's behalf — not a promise, but a completed action. The guest should feel the situation has already moved forward.<br><br>
+        <strong style="color:var(--ink);font-weight:500">4. Close.</strong> Offer an open door for any remaining needs before their stay. Address the guest by surname and close with a send-off specific to the property and travel party. Sign off with "Yours in hospitality," followed by name and title.
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="section">
+      <span class="section-tag">Tone</span>
+      <ul class="tone-list">
+        <li>First-person singular throughout. Never passive voice or "we have reviewed."</li>
+        <li>Soft but not apologetic. Confident but not clinical.</li>
+        <li>No bullet points, no em-dashes, no policy explanations. Flowing paragraphs only.</li>
+        <li>Name the guest at minimum twice: once in the greeting, once in the closing.</li>
+        <li>The transition from limitation to recovery must feel seamless — not transactional.</li>
+        <li>End by reopening the relationship, not just closing the case.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-note">Fill fields above, then copy to generate a fully populated prompt</div>
+
+</div>
+
+<script>
+function buildPrompt() {
+  const name = document.getElementById('f-name').value.trim() || '[Guest full name]';
+  const tier = document.getElementById('f-tier').value.trim() || '[Loyalty tier]';
+  const property = document.getElementById('f-property').value.trim() || '[Property name]';
+  const dates = document.getElementById('f-dates').value.trim() || '[Dates of stay]';
+  const party = document.getElementById('f-party').value.trim() || '[Travel party]';
+  const agent = document.getElementById('f-agent').value.trim() || '[Your name and title]';
+  const issue = document.getElementById('f-issue').value.trim() || '[Issue or concern, and what action has already been taken]';
+
+  return `Write a professional hospitality email using the structure and tone below.
+
+GUEST DETAILS
+Name: ${name}
+Loyalty tier: ${tier}
+Property: ${property}
+Dates: ${dates}
+Travel party: ${party}
+Issue / action taken: ${issue}
+Sign-off: Yours in hospitality, ${agent}
+
+STRUCTURE
+1. Open. Address the guest by first name. Acknowledge their message and signal that you personally are handling their concern — not a team or system.
+2. Own the issue. Name the specific reservation, benefit, or request involved. Briefly acknowledge why it matters to them given their travel context, loyalty status, or travel party. Then state the outcome or limitation clearly and without excessive apology.
+3. Recovery action. Immediately follow the limitation with a concrete step already taken on the guest's behalf — not a promise, but a completed action. The guest should feel the situation has already moved forward.
+4. Close. Offer an open door for any remaining needs before their stay. Address the guest by surname and close with a send-off specific to the property and travel party. Sign off with "Yours in hospitality," followed by name and title.
+
+TONE
+- First-person singular throughout. Never passive voice or "we have reviewed."
+- Soft but not apologetic. Confident but not clinical.
+- No bullet points, no em-dashes, no policy explanations. Flowing paragraphs only.
+- Name the guest at minimum twice: once in the greeting, once in the closing.
+- The transition from limitation to recovery must feel seamless — not transactional.
+- End by reopening the relationship, not just closing the case.`;
+}
+
+function copyPrompt() {
+  const text = buildPrompt();
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.classList.add('copied');
+    btn.textContent = 'Copied';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2-2v1"/></svg> Copy prompt`;
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
