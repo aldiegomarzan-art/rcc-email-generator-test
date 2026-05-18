@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RCC Email Generator — DIACE test</title>
+<title>RCC Email Generator - test</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -512,7 +512,7 @@ body {
         <div class="fields-grid">
           <div class="field">
             <span class="field-label">Guest Full Name</span>
-            <input class="field-input" id="f-name" type="text" placeholder="e.g. Jae Hyong Park" oninput="updateAll()">
+            <input class="field-input" id="f-name" type="text" placeholder="e.g. Al Marzan" oninput="updateAll()">
           </div>
           <div class="field">
             <span class="field-label">Loyalty Tier</span>
@@ -567,7 +567,7 @@ body {
           </div>
           <div class="field">
             <span class="field-label">Your Name + Title</span>
-            <input class="field-input" id="f-agent" type="text" placeholder="e.g. Mia Santos, Guest Relations" oninput="updateAll()">
+            <input class="field-input" id="f-agent" type="text" placeholder="e.g. Al, Diamond Elite Services" oninput="updateAll()">
           </div>
         </div>
       </div>
@@ -682,14 +682,13 @@ body {
 
 const CAMPAIGN_ISSUES = {
   loyalty: [
-    'Confirmable suite upgrade unavailable',
+    'Suite upgrade certificate unavailable',
     'Points not posting to account',
     'Tier benefit not applied at check-in',
-    'Reward Night issue',
+    'Complimentary breakfast not honored',
     'Welcome amenity missing',
     'Late checkout unavailable',
     'Room preference not honored'
-    'Point and Cash inquiry'
   ],
   reservation: [
     'Date modification request',
@@ -723,6 +722,7 @@ const CAMPAIGN_ISSUES = {
     'Lost and found item',
     'Post-stay billing inquiry',
     'Guest satisfaction follow-up',
+    'Return visit incentive offer'
   ],
   special: [
     'Anniversary or honeymoon arrangement',
