@@ -189,7 +189,7 @@ body {
 }
 .field-input::placeholder, .field-textarea::placeholder {
   color: var(--ink-soft);
-  font-style: bold;
+  font-style: italic;
 }
 .field-select {
   cursor: pointer;
@@ -273,7 +273,7 @@ body {
   font-family: var(--serif);
   font-size: 12.5px;
   color: var(--ink-soft);
-  font-style: bold;
+  font-style: italic;
   line-height: 1.5;
 }
 
@@ -301,7 +301,7 @@ body {
 .flow-empty {
   font-family: var(--serif);
   font-size: 13px;
-  font-style: bold;
+  font-style: italic;
   color: var(--ink-soft);
 }
 .flow-pill {
@@ -342,7 +342,7 @@ body {
 .tone-icon { font-size: 17px; color: var(--gold); flex-shrink: 0; margin-top: 1px; line-height: 1; }
 .tone-info { flex: 1; }
 .tone-name { font-family: var(--serif); font-size: 14.5px; font-weight: 500; color: var(--ink); margin-bottom: 2px; line-height: 1.2; }
-.tone-desc { font-family: var(--serif); font-size: 12px; color: var(--ink-soft); font-style: bold; line-height: 1.45; }
+.tone-desc { font-family: var(--serif); font-size: 12px; color: var(--ink-soft); font-style: italic; line-height: 1.45; }
 .tone-dot {
   width: 13px;
   height: 13px;
@@ -388,7 +388,7 @@ body {
 .flag-empty {
   font-family: var(--serif);
   font-size: 13px;
-  font-style: bold;
+  font-style: italic;
   color: var(--ink-soft);
   line-height: 1.5;
 }
@@ -512,17 +512,44 @@ body {
         <div class="fields-grid">
           <div class="field">
             <span class="field-label">Guest Full Name</span>
-            <input class="field-input" id="f-name" type="text" placeholder="e.g. Al Marzan" oninput="updateAll()">
+            <input class="field-input" id="f-name" type="text" placeholder="e.g. Jae Hyong Park" oninput="updateAll()">
           </div>
           <div class="field">
             <span class="field-label">Loyalty Tier</span>
             <select class="field-select" id="f-tier" onchange="updateAll()">
               <option value="">— Select tier —</option>
+              <optgroup label="Hilton Honors">
+                <option>Blue Member</option>
+                <option>Silver Member</option>
+                <option>Gold Member</option>
+                <option>Diamond Member</option>
+              </optgroup>
+              <optgroup label="Marriott Bonvoy">
+                <option>Member</option>
+                <option>Silver Elite</option>
+                <option>Gold Elite</option>
+                <option>Platinum Elite</option>
+                <option>Titanium Elite</option>
+                <option>Ambassador Elite</option>
               </optgroup>
               <optgroup label="IHG One Rewards">
+                <option>Club Member</option>
+                <option>Silver Elite</option>
+                <option>Gold Elite</option>
+                <option>Platinum Elite</option>
                 <option>Diamond Elite</option>
-                <option>Diamond Ambassador</option>
-                <option>Royal Ambassador</option>
+              </optgroup>
+              <optgroup label="World of Hyatt">
+                <option>Member</option>
+                <option>Discoverist</option>
+                <option>Explorist</option>
+                <option>Globalist</option>
+              </optgroup>
+              <optgroup label="Other">
+                <option>Non-member</option>
+                <option>VIP Guest</option>
+                <option>VVIP Guest</option>
+                <option>Corporate Account</option>
               </optgroup>
             </select>
           </div>
@@ -540,7 +567,7 @@ body {
           </div>
           <div class="field">
             <span class="field-label">Your Name + Title</span>
-            <input class="field-input" id="f-agent" type="text" placeholder="e.g. Al, Diamond Elite Services" oninput="updateAll()">
+            <input class="field-input" id="f-agent" type="text" placeholder="e.g. Mia Santos, Guest Relations" oninput="updateAll()">
           </div>
         </div>
       </div>
@@ -655,21 +682,14 @@ body {
 
 const CAMPAIGN_ISSUES = {
   loyalty: [
-    'Confirmable Suite Upgrade unavailable',
+    'Confirmable suite upgrade unavailable',
     'Points not posting to account',
     'Tier benefit not applied at check-in',
-    'Complimentary breakfast not honored',
+    'Reward Night issue',
     'Welcome amenity missing',
     'Late checkout unavailable',
     'Room preference not honored'
-  ],
-   point-and-cash: [
-    'Early checkout points refund',
-    'Same day points refund',
-  ],
-   reward-night: [
-    'Points and cash explanation',
-    'Points and cash refund',
+    'Point and Cash inquiry'
   ],
   reservation: [
     'Date modification request',
@@ -703,7 +723,6 @@ const CAMPAIGN_ISSUES = {
     'Lost and found item',
     'Post-stay billing inquiry',
     'Guest satisfaction follow-up',
-    'Return visit incentive offer'
   ],
   special: [
     'Anniversary or honeymoon arrangement',
