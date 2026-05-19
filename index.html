@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RCC Email Generator - test</title>
+<title>RCC Email Generator — Test</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -539,7 +539,7 @@ body {
           </div>
           <div class="field">
             <span class="field-label">Your Name + Title</span>
-            <input class="field-input" id="f-agent" type="text" placeholder="e.g. Al, Diamond Elite Services" oninput="updateAll()">
+            <input class="field-input" id="f-agent" type="text" placeholder="e.g. Your Name, Diamond Elite Services" oninput="updateAll()">
           </div>
         </div>
       </div>
@@ -557,7 +557,7 @@ body {
             <span class="field-label">Campaign Type</span>
             <select class="field-select" id="f-campaign" onchange="populateIssues(); updateAll()">
               <option value="">— Select campaign —</option>
-              <option value="loyalty">Loyalty Related</option>
+              <option value="loyalty">Loyalty Benefits</option>
               <option value="reservation">Reservation Change</option>
               <option value="service-recovery">Service Recovery</option>
               <option value="pre-arrival">Pre-Arrival Outreach</option>
@@ -653,11 +653,11 @@ body {
 // ═══ DATA ═══════════════════════════════════════════════════════════════════
 
 const CAMPAIGN_ISSUES = {
-  loyalty related: [
+  loyalty: [
     'Suite upgrade certificate unavailable',
     'Points not posting to account',
     'Tier benefit not applied at check-in',
-    'Point and Cash refund',
+    'Complimentary breakfast not honored',
     'Welcome amenity missing',
     'Late checkout unavailable',
     'Room preference not honored'
@@ -694,7 +694,7 @@ const CAMPAIGN_ISSUES = {
     'Lost and found item',
     'Post-stay billing inquiry',
     'Guest satisfaction follow-up',
-    'Early-check out'
+    'Return visit incentive offer'
   ],
   special: [
     'Anniversary or honeymoon arrangement',
