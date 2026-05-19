@@ -557,7 +557,7 @@ body {
             <span class="field-label">Campaign Type</span>
             <select class="field-select" id="f-campaign" onchange="populateIssues(); updateAll()">
               <option value="">— Select campaign —</option>
-              <option value="loyalty">Loyalty Benefits</option>
+              <option value="loyalty">Loyalty Related</option>
               <option value="reservation">Reservation Change</option>
               <option value="service-recovery">Service Recovery</option>
               <option value="pre-arrival">Pre-Arrival Outreach</option>
@@ -653,11 +653,11 @@ body {
 // ═══ DATA ═══════════════════════════════════════════════════════════════════
 
 const CAMPAIGN_ISSUES = {
-  loyalty: [
+  loyalty related: [
     'Suite upgrade certificate unavailable',
     'Points not posting to account',
     'Tier benefit not applied at check-in',
-    'Complimentary breakfast not honored',
+    'Point and Cash refund',
     'Welcome amenity missing',
     'Late checkout unavailable',
     'Room preference not honored'
@@ -694,7 +694,7 @@ const CAMPAIGN_ISSUES = {
     'Lost and found item',
     'Post-stay billing inquiry',
     'Guest satisfaction follow-up',
-    'Return visit incentive offer'
+    'Early-check out'
   ],
   special: [
     'Anniversary or honeymoon arrangement',
